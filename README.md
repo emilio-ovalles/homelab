@@ -79,8 +79,8 @@ flowchart TD
 
 ## hardware
 
-- **gateway** - UniFi Cloud Gateway Ultra
-- **switch** - USW-Lite-8-PoE
-- **access points** - U6+ & U6 Lite
+- **gateway** - unifi cloud gateway ultra
+- **switch** - usw-lite-8-poe
+- **access points** - u6 & u6 lite
 
 
