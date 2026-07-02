@@ -11,28 +11,52 @@ this homelab from my experience taking down my home network experimenting with p
 ## architecture
 ```mermaid
 flowchart TD
-    A[WAN] --> B{Unifi CGU}
-    B --> C[Media Server]
-    B --> D[Home Assistant]
-    B --> E{U6+ AP}
-    B --> F[Hue Bridge]
-    E --> Client1[Desk Echo Dot]
-    E --> Client2[Printer]
-    E --> Client3[PS4]
-    E --> Client4[Thermostat]
-    E --> Client5[Nintendo Switch]
-    E --> Client6[Doorbell]
-    E --> Client7[Tablet]
-    E --- |Uplink| E2{U6 Lite AP - Uplink}
-    E --> Client8[Roku]
-    E --> Client9[Laptop]
-    E --> Client10[iPhone]
-    E --> Client11[Laptop]
-    E --> Client12[App Server]
-    E --> Client13[Kitchen Echo]
-    E2 --> Client14[Bedroom TV]
-    E2 --> Client15[Kid's TV]
-    E2 --> Client16[Bedroom Echo Spot]
-    E2 --> Client17[Bathroom Echo]
-    E2 --> Client18[Laptop]
+    wan[WAN]
+    
+    subgraph mgmt["Management VLAN (1)"]
+        cgu{{Cloud Gateway Ultra <br/> Router · Firewall · IPS}}
+        switch[[USW-Lite-8-PoE]]
+        ap1[[U6+ AP]]
+        ap2[[U6 Lite AP]]
+    end
+
+    subgraph trustedvlan["Trusted VLAN (10)"]
+        printer[Printer]
+        iot[IoT Devices x10]
+        gaming[Gaming Consoles x2]
+        mobile[Mobile Devices x4]
+        laptops[Laptops x3]
+        ha[Home Assistant Pi]
+        hue[Hue Bridge]
+    end
+
+    subgraph iotvlan["IoT VLAN (20)"]
+        iotempty[Unused]
+    end
+
+    subgraph guestvlan["Guest VLAN (30)"]
+        guestempty[Unused]
+    end
+
+    subgraph homelabvlan["Homelab VLAN (40)"]
+        air[Media Server]
+        pro[App Server]
+    end
+
+    wan --> cgu
+    cgu --> switch
+    switch --> ap1
+    switch --> hue
+    switch --> ha
+    switch --> air
+    ap1 --- |Mesh Uplink| ap2
+    ap1 --> pro
+    ap1 --> printer
+    ap1 --> iot
+    ap1 --> gaming
+    ap1 --> mobile
+    ap1 --> laptops
+    ap2 --> iot
+    ap2 --> mobile
+    ap2 --> laptops
 ```
