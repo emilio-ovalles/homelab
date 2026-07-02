@@ -6,7 +6,7 @@ this serves as a reference and inventory of my homelab setup - its current state
 
 ## purpose
 
-this homelab from my experience taking down my home network experimenting with pihole. i needed a way to segment my network and have a sandbox environment where misconfigurations were self-contained and other people and devices would not be affected. the verizon-supplied internet gateway did not support the functionality required to do this, so the network hardware migrated to a unifi stack. the homelab has since evolved as a way to learn about networking, self-host applications and services, repurpose old hardware, and explore networking, security, and infrastructure concepts without running up an AWS bill.
+this homelab from my experience taking down my home network experimenting with pihole. i needed a way to segment my network and have a sandbox environment where misconfigurations were self-contained and other people and devices would not be affected. the verizon-supplied internet gateway did not support the functionality required to do this, so the network hardware migrated to a unifi stack. the homelab has since evolved as a way to learn about networking, self-host applications and services, repurpose old hardware, and explore networking, security, and infrastructure concepts without running up an aws bill.
 
 ## architecture
 ```mermaid
@@ -60,3 +60,20 @@ flowchart TD
     ap2 --> mobile
     ap2 --> laptops
 ```
+
+## network overview
+
+### vlan scheme
+
+- **management (1)** - network devices (i.e. gateway, switches, access points, etc.)
+- **trusted (10)** - all other devices
+- **iot (20)** - unused
+- **guest (30)** - unused
+- **homelab (40)** - servers, sandboxes
+
+### segmentation
+
+- homelab vlan is isolated from the rest of the network. devices can access the internet
+- inter-vlan ALLOW from roku running media server client application (trusted) --> media server (homelab). allow established/related return traffic
+
+
