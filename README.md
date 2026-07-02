@@ -83,4 +83,17 @@ flowchart TD
 - **switch** - usw-lite-8-poe
 - **access points** - u6 & u6 lite
 
+## 24/7 servers
 
+### raspberry pi 4
+raspberry pi 4 running home assistant os. currently supporting lighting automation with phillips hue bulbs, hue motion sensor, an aqara presence sensor communicating over zigbee, and alexa speakers.
+
+### 2017 macbook air
+ubuntu server os. running jellyfin media server.
+
+### 2018 macbook pro
+ubuntu server os. running self-hosted apps/services: 
+- todo list app (pwa, api, db)
+- ntfy
+- dockge
+- news feed rss pwa
